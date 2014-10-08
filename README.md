@@ -8,7 +8,7 @@ Usage:
  - `POST` `/log` saves the `content-type:text` request body to the log file
  - `DELETE` `/log` wipes the log file
 
- *Note: `content-type:text` is required. Why? And being bad-ass-ly robust and flexible was not one of the goals for thing. Maybe someday. Maybe.*
+*Note: `content-type:text` is required. Why? Being bad-ass-ly robust and flexible was not one of the goals for thing. Maybe someday. Maybe.*
 
 ### Running locally
 

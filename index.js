@@ -15,6 +15,8 @@ var bodyParser = require('body-parser');
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/logs'));
+app.use(bodyParser.text({ type: 'text/*'}));
+app.use(bodyParser.json({ strict: false, type: '*/json' }));
 
 app.get('/', function(request, response) {
   fs.readFile('index.html', encoding='utf8', function (err, data) {
@@ -26,8 +28,8 @@ app.get('/', function(request, response) {
   });
 });
 
-app.post('/log', bodyParser.text(), function(req, res) {
-  var log = '{0} {1}'.format(new Date().toISOString(), req.body.replace(/(\r\n|\n|\r)/gm,'\\n'));
+app.post('/log', function(req, res) {
+  var log = '{0} {1}'.format(new Date().toISOString(), JSON.stringify(req.body).replace(/(\r\n|\n|\r)/gm,'\\n'));
   fs.appendFile('logs/log.txt', '{0}\r\n'.format(log), encoding = 'utf8', function(err) {
     if (err) {
       res.status(500).send(err);

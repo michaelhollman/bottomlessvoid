@@ -6,6 +6,7 @@ Usage:
 
  - `GET` `/log.txt` returns the raw log file
  - `POST` `/log` saves the `content-type:text` request body to the log file
+ - `POST` `/line` returns a specific line from the log file. Request data should be a JSON Array with a single integer as the parameter. "[4]" will return line 4.
  - `DELETE` `/log` wipes the log file
 
 *Note: `content-type:text` is required. Why? Being bad-ass-ly robust and flexible was not one of the goals for thing. Maybe someday. Maybe.*

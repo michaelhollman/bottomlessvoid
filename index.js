@@ -8,6 +8,7 @@ if (!String.prototype.format) {
 }
 
 var fs = require('fs');
+var rl = require('readline-specific');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
@@ -45,6 +46,25 @@ app.post('/log', function(req, res) {
   });
 
   res.status(201).send();
+});
+
+app.post('/line', function(req, res){
+	//This function will return a specific line from the log file.
+	//Data should be sent in a JSON array.
+	
+	var line = 1;
+	
+	try{
+		line = JSON.parse(req.body)[0];
+	} catch(e) {
+		res.status(500).send();
+		return;
+	}
+	
+	rl.oneline('logs/log.txt', line, function(err, response){
+	    res.send(response);
+		res.status(200).send();
+	});
 });
 
 app.delete('/log', function(req, res) {
